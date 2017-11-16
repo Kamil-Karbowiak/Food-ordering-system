@@ -1,0 +1,17 @@
+.card{
+    max-width: 202px;
+    margin-top: 10px;
+}
+
+.addMeal{
+    color: #0088CC;
+}
+
+.addMeal:hover{
+    color: #0000F0;
+    cursor: pointer;
+}
+
+#mealQuantity{
+    text-align: center;
+}

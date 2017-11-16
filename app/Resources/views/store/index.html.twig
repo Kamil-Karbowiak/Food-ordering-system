@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card-deck-wrapper">
+            <div class="card-deck">
+            {% for meal in meals %}
+                <div class="card">
+                    <img class="card-img-top" src="{{ asset("img/meals/"~meal.image) }}">
+                    <h5 class="card-header">{{ meal.name }}</h5>
+                    <div class="card-body">
+                        <p class="card-text">{{ meal.description }}</p>
+                        <a href="{{ path("store-show",{'id' : meal.id}) }}">Add...</a>
+                    </div>
+                </div>
+            {% if loop.index % 4 == 0 %}
+            </div>
+            <div class="card-deck">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

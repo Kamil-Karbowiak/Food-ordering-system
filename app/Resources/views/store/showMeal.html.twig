@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>{{ meal.name }}</h1>
+    <hr>
+    <img src="{{ asset("img/meals/"~meal.image) }}">
+    <p>{{ meal.description }}</p>
+    <p><strong>Price: </strong>{{ meal.price }} &euro;</p>
+    <br>
+    <form>
+        <div class="form-group">
+            <label><strong>Menu quantity: </strong></label>
+            <br>
+            <div class="btn-group" role="group" id="quantity">
+                <button type="button" id="quantityDown" class="btn btn-secondary">-</button>
+                <input type="text" id="mealQuantity" name="mealQuantity" value="0">
+                <button type="button" id="quantityUp" class="btn btn-secondary">+</button>
+            </div>
+            <div id="totalCost" data-price="{{ meal.price }}"><strong>Total: </strong>0 &euro;</div>
+        </div>
+        <div class="form-group">
+            <label for="commentTxtArea">Add comment:</label>
+            <textarea class="form-control" id="commentTxtArea" rows="3"></textarea>
+        </div>
+        <input type="button" class="btn btn-primary" value="Add to cart">
+    </form>
+
+    <a href="{{ path("store-main") }}"><--- back</a>
+{% endblock %}
