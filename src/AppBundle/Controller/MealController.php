@@ -16,13 +16,6 @@ class MealController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $isAjax = $request->isXmlHttpRequest();
-        if($isAjax){
-            $id = $request->request->get('id');
-            $meal = $this->getDoctrine()->getRepository('AppBundle:Meal')->find($id);
-            $mealJSON = json_encode($meal);
-            return new Response($mealJSON);
-        }
         $meals = $this->getDoctrine()->getRepository('AppBundle:Meal')->findAll();
         return $this->render("store/index.html.twig", ['meals' => $meals]);
     }
