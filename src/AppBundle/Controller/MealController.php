@@ -2,12 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Meal;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class MealController extends Controller
 {
@@ -23,9 +21,12 @@ class MealController extends Controller
     /**
      * @Route("meal/{id}", name="store-show")
      */
-    public function showAction($id)
+    public function showAction(Meal $meal)
     {
-        $meal = $this->getDoctrine()->getRepository('AppBundle:Meal')->find($id);
-        return $this->render("store/showMeal.html.twig", ['meal'=>$meal]);
+        $cart = $this->container->get('shopping_cart');
+        $quantity = $cart->getQuantity($meal);
+        return $this->render("store/show.html.twig",
+            ['meal'    => $meal,
+            'quantity' => $quantity]);
     }
 }
