@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AdminController extends Controller
 {
     /**
-     * @Route("/", name="admin-main")
+     * @Route("/", name="admin-index")
      */
     public function indexAction(Request $request)
     {

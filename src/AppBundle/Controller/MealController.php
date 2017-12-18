@@ -7,10 +7,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/meal")
+ */
 class MealController extends Controller
 {
     /**
-     * @Route("/", name="store-main")
+     * @Route("/", name="meal-index")
      */
     public function indexAction(Request $request)
     {
@@ -19,14 +22,14 @@ class MealController extends Controller
     }
 
     /**
-     * @Route("meal/{id}", name="store-show")
+     * @Route("/{id}", name="meal-show")
      */
     public function showAction(Meal $meal)
     {
-        $cart = $this->container->get('shopping_cart');
-        $quantity = $cart->getQuantity($meal);
-        return $this->render("store/show.html.twig",
-            ['meal'    => $meal,
-            'quantity' => $quantity]);
+        return $this->render("store/show.html.twig", [
+            'meal' => $meal,
+        ]);
     }
+
+
 }

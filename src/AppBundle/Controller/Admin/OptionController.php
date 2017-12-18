@@ -18,8 +18,8 @@ class OptionController extends Controller
      * @Route("/", name="option_index")
      */
     public function indexAction(){
-        $em = $this->getDoctrine()->getRepository('AppBundle:MealOption');
-        $mealOptions = $em->findAll();
+        $mealOptionRep = $this->getDoctrine()->getRepository('AppBundle:MealOption');
+        $mealOptions = $mealOptionRep->findAll();
         $deleteForms = [];
         foreach ($mealOptions as $mealOption){
             $deleteForms[$mealOption->getId()] = $this->createDeleteForm($mealOption)->createView();
