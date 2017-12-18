@@ -1,0 +1,37 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <h3>Add meal options</h3>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.meal) }}
+        {{ form_errors(form.meal) }}
+        {{ form_widget(form.meal) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <hr>
+    <div class="form-group menu-options-wrapper"
+         data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.options|length }}">
+        {% for option in form.options %}
+                {{ form_label(option) }}
+                {{ form_errors(option) }}
+                {{ form_widget(option) }}
+        {% endfor %}
+        <a href="#" class="menu-options-add">
+            Add Option
+        </a>
+    </div>
+    <hr>
+    <div class="form-group">
+        {{ form_widget(form.save, { 'label': 'Add' }) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/menu_options.js') }}"></script>
+{% endblock %}

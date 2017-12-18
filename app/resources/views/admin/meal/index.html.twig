@@ -1,0 +1,33 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <a href="{{ path("meal_new") }}">Add new meal...</a>
+        <h1>Meals list</h1>
+
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            {% for meal in meals %}
+                <tr>
+                    <td>{{ meal.id }}</td>
+                    <td><a href="{{ path("meal_show",{ 'id' : meal.id }) }}">{{ meal.name }}</a> </td>
+                    <td>{{ meal.category.name }}</td>
+                    <td>{{ meal.quantity }}</td>
+                    <td><a href="{{ path("meal_edit",{ 'id' : meal.id }) }}">Edit</a> </td>
+                    <td>
+                        <form action="{{ path('meal_delete', {'id': meal.id}) }}" method="post">
+                            {{ form_widget(delete_forms[meal.id]) }}
+                            <button type="submit" style="font-family:fontello;">&#xe801;</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

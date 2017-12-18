@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('restaurant_new') }}">Create a new restaurant...</a>
+    <h1>Restaurants list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Shipping cost</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.name }}</td>
+                <td>{{ restaurant.address }}</td>
+                <td>{{ restaurant.shippingCost }}</td>
+                <td>
+                    <a href="{{ path('restaurant_edit', { 'id': restaurant.id }) }}">edit</a>
+                </td>
+                <td>
+                    <form action="{{ path('restaurant_delete', {'id': restaurant.id}) }}" method="post">
+                        {{ form_widget(delete_forms[restaurant.id]) }}
+                        <button type="submit" style="font-family:fontello;">&#xe801;</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
