@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Category
  *
- * @ORM\Table(name="category")
+ * @ORM\Table(name="`category`")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
 class Category
@@ -25,20 +25,19 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Meal", mappedBy="categories")
+     * @ORM\OneToMany(targetEntity="Meal", mappedBy="category")
      */
     private $meals;
 
     /**
      * Category constructor.
-     * @param $meals
      */
-    public function __construct($meals)
+    public function __construct()
     {
         $this->meals = new ArrayCollection();
     }
@@ -89,6 +88,11 @@ class Category
      * @return string
      */
     public function getName()
+    {
+        return $this->name;
+    }
+
+    public function __toString()
     {
         return $this->name;
     }

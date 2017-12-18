@@ -25,7 +25,7 @@ class Restaurant
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
@@ -42,14 +42,34 @@ class Restaurant
     private $meals;
 
     /**
-     * Restaurant constructor.
-     * @param $meals
+     * @ORM\Column(name="shipping_cost", type="integer")
      */
-    public function __construct($meals)
+    private $shippingCost;
+
+    /**
+     * Restaurant constructor.
+     */
+    public function __construct()
     {
         $this->meals = new ArrayCollection();
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getShippingCost()
+    {
+        return $this->shippingCost;
+    }
+
+    /**
+     * @param mixed $shippingCost
+     */
+    public function setShippingCost($shippingCost)
+    {
+        $this->shippingCost = $shippingCost;
+    }
     /**
      * @return mixed
      */
@@ -122,6 +142,11 @@ class Restaurant
     public function getAddress()
     {
         return $this->address;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }
 

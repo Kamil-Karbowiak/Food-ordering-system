@@ -4,9 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Meal
  *
@@ -53,50 +51,79 @@ class Meal
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="meals")
+     * @var string $image
+     * @Assert\File( maxSize = "1024k", mimeTypesMessage = "Please upload a valid Image")
      */
-    private $categories;
+    private $image2;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="meals")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="meals", fetch="EAGER", cascade={"persist"})
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="meals", fetch="EAGER", cascade={"persist"})
+     * @ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")
      */
     private $restaurant;
 
     /**
-     * @ORM\Column(name="stockQuantity", type="integer")
+     * @ORM\OneToMany(targetEntity="MealOption", mappedBy="meal", cascade={"persist"}, fetch="EAGER")
      */
-    private $stockQuantity;
+    private $mealOptions;
 
     /**
-     * @return mixed
+     * @ORM\Column(name="quantity", type="integer")
      */
-    public function getStockQuantity()
-    {
-        return $this->stockQuantity;
-    }
+    private $quantity;
 
-    /**
-     * @param mixed $stockQuantity
-     */
-    public function setStockQuantity($stockQuantity)
-    {
-        $this->stockQuantity = $stockQuantity;
-    }
     /**
      * Meal constructor.
-     * @param $categories
      */
-    public function __construct($categories)
+    public function __construct()
     {
-        $this->categories = new ArrayCollection();
+       $this->mealOptions = new ArrayCollection();
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+    /**
+     * @return mixed
+     */
+    public function getMealOptions()
+    {
+        return $this->mealOptions->getValues();
+    }
+
+    /**
+     * @param mixed $mealOptions
+     */
+    public function setMealOptions($mealOptions)
+    {
+        $this->mealOptions = $mealOptions;
     }
 
     /**
      * @return mixed
      */
-    public function getCategories()
+    public function getCategory()
     {
-        return $this->categories;
+        return $this->category;
     }
 
     /**
@@ -116,11 +143,11 @@ class Meal
     }
 
     /**
-     * @param mixed $categories
+     * @param mixed $category
      */
-    public function setCategories($categories)
+    public function setCategory($category)
     {
-        $this->categories = $categories;
+        $this->category = $category;
     }
 
     /**
@@ -227,6 +254,31 @@ class Meal
     public function getImage()
     {
         return $this->image;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getImage2()
+    {
+        return $this->image2;
+    }
+
+    /**
+     * @param mixed $image2
+     */
+    public function setImage2($image2)
+    {
+        $this->image2 = $image2;
+    }
+
+    public function isMealNotAvailable(){
+        return (int)$this->quantity < 1 ? true : false;
+    }
+
+    public function isMealLowAvailable(){
+        return (int)$this->quantity < 20 && (int)$this->quantity > 0 ? true : false;
     }
 }
 
