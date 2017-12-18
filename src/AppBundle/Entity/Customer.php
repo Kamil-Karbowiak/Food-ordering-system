@@ -36,12 +36,6 @@ class Customer
     private $lastName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
-     */
-    private $address;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
@@ -112,30 +106,6 @@ class Customer
     public function getLastName()
     {
         return $this->lastName;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Customer
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
     }
 
     /**
