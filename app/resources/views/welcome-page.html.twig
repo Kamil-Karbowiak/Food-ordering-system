@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/welcome-page.css") }}">
+{% endblock %}
+
+{% block topbar %}
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div class="page-option" id="left-option">
+            <img src="{{ asset('img/meal.jpg') }}">
+            <div class="option-footer">
+                <a href="{{ path("meal-index") }}">Storefront</a>
+            </div>
+        </div>
+        <div class="page-option" id="right-option">
+            <img src="{{ asset('img/admin.jpg') }}">
+            <div class="option-footer">
+                <a href="{{ path("admin-index") }}">Admin panel</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

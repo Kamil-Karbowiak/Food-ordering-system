@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container-fluid form-content">
+        <h1>{{ meal.name }}</h1>
+        <hr>
+        <div class="float-lg-right">
+            <img src="{{ asset("uploads/img/meals/"~meal.image) }}">
+        </div>
+        <p><strong>Description: </strong>{{ meal.description }}</p>
+        <p><strong>Restaurant: </strong>{{ meal.restaurant }}</p>
+        <p><strong>Price: </strong>{{ meal.price }} &euro;</p>
+        {% if meal.mealOptions is not empty %}
+            <h6>Available options:</h6>
+            <ol>
+            {% for mealOption in meal.mealOptions %}
+                <li>{{ mealOption }}</li>
+                <ul>
+                    {% for optionItem in mealOption.options %}
+                        <li>{{ optionItem }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+            </ol>
+        {% endif %}
+        <a href="{{ path("cart-add", {'id' : meal.id}) }}">Add to the cart...</a>
+    </div>
+{% endblock %}

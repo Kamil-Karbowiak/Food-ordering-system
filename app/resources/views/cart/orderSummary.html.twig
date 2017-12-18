@@ -1,0 +1,53 @@
+<div id="summaryWrapper">
+    <div id="mealsList">
+        <table class="table">
+            <tr>
+                <th>#</th>
+                <th>Meal</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+                {% for item in shopping_cart.all %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="{{ path('meal-show',{'id': item.id }) }}">{{ item.meal.name }}</a></td>
+                    <td>{{ item.meal.price }} &euro;</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <form method="post" action="{{ path("cart-delete") }}">
+                            <input type="submit" value="&#xe801;" style="font-family:fontello;" />
+                            <input type="hidden" name="id" value="{{ item.id }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('cart_item') }}">
+                        </form>
+                    </td>
+                </tr>
+                    {% for option in item.selectedOptions %}
+                        <tr>
+                            <td></td>
+                            <td><span class="option-item">{{ option.mealOption~': '~option.value }}</span></td>
+                            <td><span class="option-item">+{{ option.price~' ' }}&euro;</span></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+        </table>
+    </div>
+    <div id="cartSummary">
+        <h3>Cart summary</h3>
+        <table class="table">
+            <tr>
+                <th>Sub total</th>
+                <td>{{ shopping_cart.getSubTotal }} &euro;</td>
+            </tr>
+            <tr>
+                <th>Shipping</th>
+                <td>5 &euro;</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ (shopping_cart.getSubTotal + 5) }} &euro;</td>
+            </tr>
+        </table>
+        <a class="btn btn-primary" href="{{ path('cart-checkout') }}">Checkout</a>
+    </div>
+</div>

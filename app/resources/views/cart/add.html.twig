@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid form-content">
+        <h1>{{ meal.name }}</h1>
+        <hr>
+        <div class="float-lg-right">
+            <img src="{{ asset("uploads/img/meals/"~meal.image) }}">
+        </div>
+        <p><strong>Description: </strong>{{ meal.description }}</p>
+        <p><strong>Restaurant: </strong>{{ meal.restaurant }}</p>
+        <p><strong>Price: </strong>{{ meal.price }} &euro;</p>
+        <form method="post" action="#">
+            {% if  meal.mealOptions is not empty%}
+                <label><strong>Options:</strong></label>
+                <br>
+                {% for mealOption in meal.mealOptions %}
+                    <label for="select-meal-options">{{ mealOption.name }}</label>
+                    <select name="select-meal-options[]">
+                    {% for option in mealOption.options %}
+                        <option value="{{ option.id }}">{{ option.value ~ ' +'~option.price~' ' }}&euro;</option>
+                    {% endfor %}
+                    </select>
+                    <br>
+                {% endfor %}
+            {% endif %}
+            <label><strong>Quantity:</strong></label>
+            <div class="form-group">
+                <input class="form-control col-2" id="quantity-control" type="number" name="meal-quantity" value="1" min="1">
+            </div>
+            <div class="form-group">
+                <button class="form-control col-2 btn-primary" type="submit"  name="add-cart-submit">Add</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
