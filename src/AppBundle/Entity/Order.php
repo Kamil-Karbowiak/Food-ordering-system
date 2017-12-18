@@ -28,36 +28,36 @@ class Order
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="OrderItem", cascade={"merge"})
-     * @ORM\JoinTable(name="orders_order_items",
-     *      joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="order_item_id", referencedColumnName="id", unique=true)})
+     * @ORM\Column(name="hash", type="string")
      */
-    private $orderItems;
-
+    private $hash;
     /**
      * @ORM\Column(name="amount", type="decimal")
      */
     private $amount;
 
     /**
-     * @ORM\Column(name="status", type="string")
+     * @ORM\Column(name="paid", type="boolean")
      */
-    private $status;
+    private $paid;
 
     /**
-     * @ORM\OneToOne(targetEntity="Customer", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
 
     /**
+     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     */
+    private $address;
+    /**
      * Order constructor.
      */
     public function __construct()
     {
-        $this->id = uniqid();
-        $this->orderItems = new ArrayCollection();
+        $this->hash = bin2hex(random_bytes(32));
     }
 
     /**
@@ -94,22 +94,6 @@ class Order
     /**
      * @return mixed
      */
-    public function getOrderItems()
-    {
-        return $this->orderItems;
-    }
-
-    /**
-     * @param mixed $orderItems
-     */
-    public function setOrderItems($orderItems)
-    {
-        $this->orderItems = $orderItems;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getAmount()
     {
         return $this->amount;
@@ -126,16 +110,48 @@ class Order
     /**
      * @return mixed
      */
-    public function getStatus()
+    public function getHash()
     {
-        return $this->status;
+        return $this->hash;
     }
 
     /**
-     * @param mixed $status
+     * @param mixed $hash
      */
-    public function setStatus($status)
+    public function setHash($hash)
     {
-        $this->status = $status;
+        $this->hash = $hash;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaid()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @param mixed $paid
+     */
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
 }
