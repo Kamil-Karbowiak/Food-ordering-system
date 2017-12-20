@@ -24,6 +24,8 @@ class Option
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(0)
      */
     private $price;
 
@@ -31,6 +33,7 @@ class Option
      * @var string
      *
      * @ORM\Column(name="value", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $value;
 

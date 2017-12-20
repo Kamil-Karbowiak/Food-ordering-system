@@ -26,6 +26,7 @@ class Restaurant
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -33,6 +34,7 @@ class Restaurant
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $address;
 
@@ -43,6 +45,8 @@ class Restaurant
 
     /**
      * @ORM\Column(name="shipping_cost", type="integer")
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(-1)
      */
     private $shippingCost;
 

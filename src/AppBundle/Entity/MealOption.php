@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,17 +25,20 @@ class MealOption
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="Meal", inversedBy="mealOptions", cascade={"persist"})
+     * @Assert\NotBlank()
      */
     private $meal;
 
     /**
      *
      * @ORM\OneToMany(targetEntity="Option", mappedBy="mealOption", cascade={"persist"})
+     * @Assert\NotBlank()
      */
     private $options;
 

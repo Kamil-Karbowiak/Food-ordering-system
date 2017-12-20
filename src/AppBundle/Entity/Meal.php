@@ -26,6 +26,7 @@ class Meal
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -40,6 +41,8 @@ class Meal
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=64, scale=2)
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(0)
      */
     private $price;
 
@@ -59,12 +62,14 @@ class Meal
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="meals", fetch="EAGER", cascade={"persist"})
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="meals", fetch="EAGER", cascade={"persist"})
      * @ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $restaurant;
 
@@ -75,6 +80,8 @@ class Meal
 
     /**
      * @ORM\Column(name="quantity", type="integer")
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(0)
      */
     private $quantity;
 

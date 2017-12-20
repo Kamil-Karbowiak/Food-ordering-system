@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="order")
+ * @ORM\Table(name="`order`")
  * @ORM\Entity()
  */
 
@@ -33,6 +33,7 @@ class Order
     private $hash;
     /**
      * @ORM\Column(name="amount", type="decimal")
+     *
      */
     private $amount;
 
@@ -42,22 +43,41 @@ class Order
     private $paid;
 
     /**
-     * @ORM\OneToOne(targetEntity="Customer")
+     * @ORM\OneToOne(targetEntity="Customer", cascade={"persist"})
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address")
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="OrderItem", cascade={"persist"})
+     * @ORM\JoinTable(name="orders__orderitems",
+     *     joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="order_item_id", referencedColumnName="id",
+     *     unique=true)})
      */
-    private $address;
+    private $orderItems;
     /**
      * Order constructor.
      */
     public function __construct()
     {
         $this->hash = bin2hex(random_bytes(32));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * @param mixed $orderItems
+     */
+    public function setOrderItems($orderItems)
+    {
+        $this->orderItems = $orderItems;
     }
 
     /**
@@ -137,21 +157,5 @@ class Order
     public function setPaid($paid)
     {
         $this->paid = $paid;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $address
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
     }
 }

@@ -24,12 +24,15 @@ class OrderItem
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-
      */
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Meal", cascade={"merge"})
+     * @ORM\Column(name="hash", type="string")
+     */
+    private $hash;
+    /**
+     * @ORM\ManyToOne(targetEntity="Meal", cascade={"detach"})
      * @ORM\JoinColumn(name="meal_id", referencedColumnName="id")
      */
     private $meal;
@@ -45,8 +48,8 @@ class OrderItem
     private $quantity;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Option", cascade={"persist"})
-     * @ORM\JoinTable(name="order_items_options",
+     * @ORM\ManyToMany(targetEntity="Option", fetch="EAGER")
+     * @ORM\JoinTable(name="orderitems_options",
      *     joinColumns={@ORM\JoinColumn(name="order_item_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="option_id", referencedColumnName="id",
      *     unique=true)})
@@ -58,6 +61,7 @@ class OrderItem
      */
     public function __construct(Meal $meal)
     {
+        $this->hash = uniqid();
         $this->meal = $meal;
         $this->selectedOptions = new ArrayCollection();
     }
@@ -68,6 +72,22 @@ class OrderItem
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param mixed $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
     }
 
     /**
@@ -102,6 +122,7 @@ class OrderItem
      */
     public function getAmount()
     {
+        $this->refreshAmount();
         return $this->amount;
     }
 

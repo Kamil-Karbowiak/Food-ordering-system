@@ -25,6 +25,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstName;
 
@@ -32,6 +33,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lastName;
 
@@ -39,6 +41,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -46,9 +49,16 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $telephone;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Address", cascade={"persist"})
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     * @Assert\NotBlank()
+     */
+    private $address;
 
     /**
      * Get id
@@ -155,5 +165,22 @@ class Customer
     {
         return $this->telephone;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
 }
 

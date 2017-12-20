@@ -25,6 +25,7 @@ class Address
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $address;
 
@@ -32,6 +33,7 @@ class Address
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
+     * @@Assert\NotBlank()
      */
     private $city;
 
@@ -39,6 +41,7 @@ class Address
      * @var string
      *
      * @ORM\Column(name="postCode", type="string", length=255)
+     * @@Assert\NotBlank()
      */
     private $postCode;
 
