@@ -60,7 +60,7 @@ class MealOption
      */
     public function getOptions()
     {
-        return $this->options->getValues();
+        return $this->options;
     }
 
     public function getOptionsCount(){
