@@ -8,11 +8,16 @@
     <p><strong>Description: </strong>{{ meal.description }}</p>
     <p><strong>Restaurant: </strong>{{ meal.restaurant }}</p>
     <p><strong>Price: </strong>{{ meal.price }} &euro;</p>
-    <p><strong>Portions: </strong>{{ meal.availablePortionsCount }}</p>
+    <p><strong>Portions: </strong>{{ meal.quantity }}</p>
     <p><strong>Variants:</strong></p>
     <ul>
-        {% for variant in meal.variants %}
-            <li>{{ variant.name }}</li>
+        {% for mealOption in meal.mealOptions %}
+            <li>{{ mealOption.name }}</li>
+            {% for option in mealOption.options %}
+                        <ul>
+                            <li>{{ option.value }}</li>
+                        </ul>
+                {% endfor %}
         {% endfor %}
     </ul>
 

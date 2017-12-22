@@ -10,13 +10,13 @@
                 {% for item in shopping_cart.all %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td><a href="{{ path('meal-show',{'id': item.id }) }}">{{ item.meal.name }}</a></td>
+                    <td><a href="{{ path('meal-show',{'id': item.meal.id }) }}">{{ item.meal.name }}</a></td>
                     <td>{{ item.meal.price }} &euro;</td>
                     <td>{{ item.quantity }}</td>
                     <td>
                         <form method="post" action="{{ path("cart-delete") }}">
                             <input type="submit" value="&#xe801;" style="font-family:fontello;" />
-                            <input type="hidden" name="id" value="{{ item.id }}">
+                            <input type="hidden" name="id" value="{{ item.hash }}">
                             <input type="hidden" name="_token" value="{{ csrf_token('cart_item') }}">
                         </form>
                     </td>
@@ -24,7 +24,7 @@
                     {% for option in item.selectedOptions %}
                         <tr>
                             <td></td>
-                            <td><span class="option-item">{{ option.mealOption~': '~option.value }}</span></td>
+                            <td><span class="option-item">{{ option.mealOption.name~': '~option.value }}</span></td>
                             <td><span class="option-item">+{{ option.price~' ' }}&euro;</span></td>
                             <td></td>
                         </tr>

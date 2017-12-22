@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container-fluid">
-        <a href="{{ path("meal_new") }}">Add new meal...</a>
+        <a href="{{ path("admin-meal-new") }}">Add new meal...</a>
         <h1>Meals list</h1>
 
         <table class="table">
@@ -16,12 +16,12 @@
             {% for meal in meals %}
                 <tr>
                     <td>{{ meal.id }}</td>
-                    <td><a href="{{ path("meal_show",{ 'id' : meal.id }) }}">{{ meal.name }}</a> </td>
+                    <td><a href="{{ path("admin-meal-show",{ 'id' : meal.id }) }}">{{ meal.name }}</a> </td>
                     <td>{{ meal.category.name }}</td>
                     <td>{{ meal.quantity }}</td>
-                    <td><a href="{{ path("meal_edit",{ 'id' : meal.id }) }}">Edit</a> </td>
+                    <td><a href="{{ path("admin-meal-edit",{ 'id' : meal.id }) }}">Edit</a> </td>
                     <td>
-                        <form action="{{ path('meal_delete', {'id': meal.id}) }}" method="post">
+                        <form action="{{ path('admin-meal-delete', {'id': meal.id}) }}" method="post">
                             {{ form_widget(delete_forms[meal.id]) }}
                             <button type="submit" style="font-family:fontello;">&#xe801;</button>
                         </form>

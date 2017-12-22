@@ -16,7 +16,7 @@
          <tr>
             <td>{{ option.id }}</td>
             <td>{{ option.name }}</td>
-            <td><a href="{{ path('meal_edit',{'id':option.meal.id}) }}">{{ option.meal.name }}</a></td>
+            <td><a href="{{ path('admin-meal-edit',{'id':option.meal.id}) }}">{{ option.meal.name }}</a></td>
             <td>{{ option.optionsCount }}</td>
             <td><a href="{{ path('option_edit',{'id':option.id}) }}">Edit</a></td>
             <td>
