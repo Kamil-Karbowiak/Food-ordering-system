@@ -5,12 +5,22 @@
             <div class="card-deck">
             {% for meal in meals %}
                 <div class="card">
-                    <img class="card-img-top" src="{{ asset("img/meals/"~meal.image) }}">
+                    <img class="card-img-top" src="{{ asset("uploads/img/meals/"~meal.image) }}">
+                    {% if meal.isMealNotAvailable %}
+                    <span class="badge badge-danger">Not available</span>
+                    {% elseif meal.isMealLowAvailable %}
+                    <span class="badge badge-warning">Low available</span>
+                    {% endif %}
                     <h5 class="card-header">{{ meal.name }}</h5>
                     <div class="card-body">
                         <p class="card-text">{{ meal.description }}</p>
-                        <a href="{{ path("store-show",{'id' : meal.id}) }}">Add...</a>
+                        <a href="{{ path("meal-show",{'id' : meal.id}) }}">More...</a>
                     </div>
+                    {% if not meal.isMealNotAvailable %}
+                        <div class="card-footer">
+                            <a href="{{ path("cart-add",{'id' : meal.id}) }}">Add...</a>
+                        </div>
+                    {% endif %}
                 </div>
             {% if loop.index % 4 == 0 %}
             </div>

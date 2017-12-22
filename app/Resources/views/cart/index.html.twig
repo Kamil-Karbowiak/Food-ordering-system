@@ -1,4 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if shopping_cart.all is not empty %}
+        {% include 'cart/orderSummary.html.twig' %}
+    {% else %}
+        Your shopping cart is empty..
+    {% endif %}
+
 {% endblock %}
