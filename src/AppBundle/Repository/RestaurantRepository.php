@@ -10,14 +10,4 @@ namespace AppBundle\Repository;
  */
 class RestaurantRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllAssoc(){
-        $em = $this->getEntityManager();
-        $restaurants = $em->getRepository('AppBundle:Restaurant')->findAll();
-        $assocRestaurants = [];
-        foreach ($restaurants as $restaurant){
-            $key = $restaurant->getName().', '.$restaurant->getAddress();
-            $assocRestaurants[$key] = $restaurant;
-        }
-        return $assocRestaurants;
-    }
 }

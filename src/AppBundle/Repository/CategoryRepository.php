@@ -10,13 +10,4 @@ namespace AppBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllAssoc(){
-        $em = $this->getEntityManager();
-        $categories = $em->getRepository('AppBundle:Category')->findAll();
-        $assocCategories = [];
-        foreach ($categories as $category){
-            $assocCategories[$category->getName()] = $category;
-        }
-        return $assocCategories;
-    }
 }
