@@ -1,17 +1,93 @@
+table{
+    text-align: center;
+}
+#sidebar-wrapper{
+    width: 15%;
+    height: 100vh;
+    background-color: #434951;
+    float: left;
+    margin-right: 20px;
+}
+#content-wrapper{
+    width: 80%;
+    margin-top: 10px;
+    float: left;
+}
+.form-content{
+    float: left;
+    width: 70%;
+}
+.form-content{
+    margin-top: 15px;
+}
+.nav-item{
+    border-bottom: solid white 1px;
+}
+.nav-link{
+    text-decoration: none;
+}
+.nav-item{
+    text-align: center;
+}
 .card{
     max-width: 202px;
     margin-top: 10px;
 }
-
 .addMeal{
     color: #0088CC;
 }
-
 .addMeal:hover{
-    color: #0000F0;
+    color: gray;
     cursor: pointer;
 }
-
 #mealQuantity{
+    text-align: center;
+}
+#cartControl > a{
+    color: ghostwhite;
+    text-decoration: none;
+}
+#cartControl > a:hover{
+    color: #CCCCCC;
+}
+#summaryWrapper{
+    background-color: #6b9311;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+#mealsList{
+    padding: 10px;
+    width: 65%;
+    float: left;
+    background-color: #e8f7f2;
+}
+#cartSummary{
+    padding: 10px;
+    width: 30%;
+    float: left;
+    margin-left: 20px;
+    background-color: #e8f7f2;
+}
+
+.remove-link{
+    margin-right: 10px;
+    float: right;
+}
+.parent-item{
+    font-size: large;
+    color: gray;
+}
+.child-item{
+    color: whitesmoke;
+}
+.child-item:hover{
+    color: lightgray;
+}
+.option-item{
+    font-size: small;
+}
+#quantity-control{
     text-align: center;
 }
