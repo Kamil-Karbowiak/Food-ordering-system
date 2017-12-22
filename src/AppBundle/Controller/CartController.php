@@ -7,8 +7,8 @@ use AppBundle\Entity\Meal;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItem;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * @Route("/cart")
@@ -20,9 +20,6 @@ class CartController extends Controller
      */
     public function indexAction()
     {
-        $cart = $this->container->get('shopping_cart');
-        dump($cart->all());
-        die();
         return $this->render("cart/index.html.twig");
     }
 
@@ -35,12 +32,10 @@ class CartController extends Controller
     public function addAction(Meal $meal, Request $request)
     {
         if($request->request->has('add-cart-submit')){
-            $em = $this->getDoctrine()->getManager();
             $orderItem = new OrderItem($meal);
-            $em->merge($orderItem);
             $quantity = $request->request->get('meal-quantity');
             $orderItem->setQuantity($quantity);
-            $orderItem->setAmount(5);
+
             if($request->request->has('select-meal-options')) {
                 foreach ($request->request->get('select-meal-options') as $option) {
                     $option = $this->getDoctrine()->getRepository('AppBundle:Option')->find($option);
@@ -54,7 +49,6 @@ class CartController extends Controller
             }catch(\Exception $ex){
                 $this->addFlash('danger', $ex->getMessage());
             }
-
             return $this->redirectToRoute('meal-index');
         }
         return $this->render("cart/add.html.twig", [
@@ -69,29 +63,23 @@ class CartController extends Controller
         $customer = new Customer();
         $form = $this->createForm('AppBundle\Form\CustomerType', $customer);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
-            $em->persist($customer);
-            $em->flush();
             $cart = $this->container->get('shopping_cart');
             $orderItems = $cart->all();
-            dump($orderItems);
-            die();
-            foreach ($orderItems as $item){
-                $em->persist($item);
-            }
-            $em->flush();
+            $amount = $cart->getSubTotal();
 
             $order = new Order();
-            $order->setStatus('new');
-            $order->setOrderItems($orderItems);
             $order->setCustomer($customer);
-            $order->setAmount($cart->getSubTotal());
+            $order->setOrderItems($orderItems);
+            $order->setAmount($amount);
+            $order->setPaid(true);
+
             $em->persist($order);
             $em->flush();
+            $cart->clear();
             $this->addFlash('success', 'Your order is being processed');
-            return $this->redirectToRoute('meal-main');
+            return $this->redirectToRoute('meal-index');
         }
 
         return $this->render("cart/checkout.html.twig", [

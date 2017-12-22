@@ -4,8 +4,9 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Restaurant;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Restaurant controller.
@@ -23,7 +24,6 @@ class RestaurantController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $restaurants = $em->getRepository('AppBundle:Restaurant')->findAll();
         $deleteForms = [];
         foreach ($restaurants as $restaurant){
@@ -52,7 +52,7 @@ class RestaurantController extends Controller
             $em->persist($restaurant);
             $em->flush();
 
-            return $this->redirectToRoute('restaurant_show', array('id' => $restaurant->getId()));
+            return $this->redirectToRoute('restaurant_index', array('id' => $restaurant->getId()));
         }
 
         return $this->render('admin/restaurant/new.html.twig', array(

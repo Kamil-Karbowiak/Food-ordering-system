@@ -13,7 +13,8 @@ use AppBundle\Entity\Meal;
 use AppBundle\Form\MealType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("admin/meal")
@@ -21,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MealController extends Controller
 {
     /**
-     * @Route("/", name="meal_index")
+     * @Route("/", name="admin-meal-index")
      */
     public function indexAction(){
         $em = $this->getDoctrine();
@@ -37,14 +38,14 @@ class MealController extends Controller
     }
 
     /**
-     * @Route("/show/{id}", name="meal_show")
+     * @Route("/show/{id}", name="admin-meal-show")
      */
     public function showAction(Meal $meal){
         return $this->render("admin/meal/show.html.twig", ["meal" => $meal]);
     }
 
     /**
-     * @Route("/new", name="meal_new")
+     * @Route("/new", name="admin-meal-new")
      */
     public function newAction(Request $request){
         $meal = new Meal();
@@ -52,27 +53,30 @@ class MealController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $image = $meal->getImage2();
+            if($image){
+                $imageName = md5(uniqid()).'.'.$image->guessExtension();
+                $image->move(
+                    $this->getParameter('img_meals_directory'),
+                    $imageName
+                );
+                $meal->setImage($imageName);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($meal);
             $em->flush();
-            return $this->redirectToRoute("meal_index");
+            return $this->redirectToRoute("admin-meal-index");
         }
 
         return $this->render("admin/meal/new.html.twig", ['form' => $form->createView()]);
     }
 
     /**
-     * @Route("/edit/{id}", name="meal_edit")
+     * @Route("/edit/{id}", name="admin-meal-edit")
      */
     public function editAction(Meal $meal, Request $request){
-        $em            = $this->getDoctrine()->getManager();
-        $restaurantRep = $em->getRepository('AppBundle:Restaurant');
-        $categoryRep   = $em->getRepository('AppBundle:Category');
-        $restaurants   = $restaurantRep->getAllAssoc();
-        $categories    = $categoryRep->findAll();
-        $form = $this->createForm(MealType::class, $meal, array(
-            'restaurants' => $restaurants,
-            'categories'  => $categories));
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(MealType::class, $meal);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -87,7 +91,7 @@ class MealController extends Controller
             }
             $em->persist($meal);
             $em->flush();
-            return $this->redirectToRoute("meal_index");
+            return $this->redirectToRoute("admin-meal-index");
         }
         return $this->render("admin/meal/edit.html.twig", [
             'form' => $form->createView(),
@@ -95,7 +99,7 @@ class MealController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="meal_delete")
+     * @Route("/{id}", name="admin-meal-delete")
      */
     public function deleteAction(Request $request, Meal $meal){
         $form = $this->createDeleteForm($meal);
@@ -107,12 +111,12 @@ class MealController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute("meal_index");
+        return $this->redirectToRoute("admin-meal-index");
     }
 
     private function createDeleteForm(Meal $meal){
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('meal_delete', ['id' => $meal->getId()]))
+            ->setAction($this->generateUrl('admin-meal-delete', ['id' => $meal->getId()]))
             ->setMethod('DELETE')
             ->getForm();
     }
