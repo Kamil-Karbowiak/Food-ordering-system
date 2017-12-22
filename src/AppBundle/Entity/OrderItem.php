@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="order_item")
@@ -52,7 +53,7 @@ class OrderItem
      * @ORM\JoinTable(name="orderitems_options",
      *     joinColumns={@ORM\JoinColumn(name="order_item_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="option_id", referencedColumnName="id",
-     *     unique=true)})
+     *      )})
      */
     private $selectedOptions;
 
@@ -159,6 +160,10 @@ class OrderItem
     public function getSelectedOptions()
     {
         return $this->selectedOptions;
+    }
+
+    public function setSelectedOptions($options){
+        $this->selectedOptions = $options;
     }
 
     /**

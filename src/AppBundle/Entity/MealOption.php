@@ -95,7 +95,7 @@ class MealOption
      *
      * @param string $name
      *
-     * @return Menu_options
+     * @return MealOption
      */
     public function setName($name)
     {
@@ -119,7 +119,7 @@ class MealOption
      *
      * @param integer $meal
      *
-     * @return Menu_options
+     * @return MealOption
      */
     public function setMeal($meal)
     {
@@ -133,7 +133,7 @@ class MealOption
      *
      * @return int
      */
-    public function getmeal()
+    public function getMeal()
     {
         return $this->meal;
     }

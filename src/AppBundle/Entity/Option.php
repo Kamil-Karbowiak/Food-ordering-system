@@ -101,6 +101,7 @@ class Option
      *
      * @param string $value
      *
+     * @return Option
      */
     public function setValue($value)
     {
