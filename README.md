@@ -1,4 +1,14 @@
 Food-ordering-system
 ====================
 
-A Symfony project created on November 12, 2017, 10:41 pm.
+## Project features:
+
+- Symfony 3.3
+- Doctrine ORM
+- TWIG
+- uses FOSUserBundle
+- Symfony Validator
+
+
+## TODO:
+- write unit tests
