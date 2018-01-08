@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-12-11
- * Time: 13:21
- */
-
 namespace AppBundle\Service\Contract;
-
 
 use AppBundle\Entity\OrderItem;
 

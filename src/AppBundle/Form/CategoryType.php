@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-11-24
- * Time: 16:32
- */
-
 namespace AppBundle\Form;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,5 +24,4 @@ class CategoryType extends AbstractType
             'buttonValue' => 'Add',
         ]);
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -46,6 +45,4 @@ class CustomerType extends AbstractType
     {
         return 'appbundle_customer';
     }
-
-
 }

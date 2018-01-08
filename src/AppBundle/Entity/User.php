@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-12-14
- * Time: 11:12
- */
-
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;

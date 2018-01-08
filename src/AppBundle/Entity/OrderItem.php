@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-12-11
- * Time: 20:23
- */
-
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -59,6 +52,7 @@ class OrderItem
 
     /**
      * OrderItem constructor.
+     * @param Meal $meal
      */
     public function __construct(Meal $meal)
     {
@@ -162,7 +156,8 @@ class OrderItem
         return $this->selectedOptions;
     }
 
-    public function setSelectedOptions($options){
+    public function setSelectedOptions($options)
+    {
         $this->selectedOptions = $options;
     }
 

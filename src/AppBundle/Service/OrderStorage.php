@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-11-16
- * Time: 22:22
- */
-
 namespace AppBundle\Service;
 
 use AppBundle\Service\Contract\OrderStorageInterface;
@@ -14,7 +7,7 @@ class OrderStorage implements OrderStorageInterface
 {
     private $ordersContainer;
 
-    function __construct($ordersContainer = 'order_items')
+    public function __construct($ordersContainer = 'order_items')
     {
         $this->ordersContainer = $ordersContainer;
     }

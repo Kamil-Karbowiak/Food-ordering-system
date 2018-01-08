@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-11-16
- * Time: 22:24
- */
-
 namespace AppBundle\Service\Contract;
 
 

@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-12-08
- * Time: 23:56
- */
-
 namespace AppBundle\Form;
-
 
 use AppBundle\Entity\Meal;
 use AppBundle\Entity\MealOption;
@@ -56,5 +48,4 @@ class OrderItemType extends AbstractType
             'data_class'  => 'AppBundle\Entity\OrderItem',
         ]);
     }
-
 }

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kamil
- * Date: 2017-12-11
- * Time: 13:20
- */
-
 namespace AppBundle\Service;
 
 use AppBundle\Entity\OrderItem;
@@ -58,7 +51,6 @@ class ShoppingCart implements ShoppingCartInterface
     public function all()
     {
         $items = [];
-
         foreach ($this->ordersStorage->all() as $item) {
             $options = $item->getSelectedOptions();
             $meal = $item->getMeal();
@@ -78,7 +70,8 @@ class ShoppingCart implements ShoppingCartInterface
         return $this->ordersStorage->itemsCount();
     }
 
-    public function clear(){
+    public function clear()
+    {
         $this->ordersStorage->clear();
     }
 

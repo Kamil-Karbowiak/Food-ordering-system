@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Meal;
@@ -58,6 +57,4 @@ class MealOptionType extends AbstractType
     {
         return 'appbundle_meal_option';
     }
-
-
 }
