@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Customer;
@@ -35,7 +34,6 @@ class CartController extends Controller
             $orderItem = new OrderItem($meal);
             $quantity = $request->request->get('meal-quantity');
             $orderItem->setQuantity($quantity);
-
             if($request->request->has('select-meal-options')) {
                 foreach ($request->request->get('select-meal-options') as $option) {
                     $option = $this->getDoctrine()->getRepository('AppBundle:Option')->find($option);
@@ -59,7 +57,8 @@ class CartController extends Controller
     /**
      * @Route("/checkout", name="cart-checkout")
      */
-    public function checkoutAction(Request $request){
+    public function checkoutAction(Request $request)
+    {
         $customer = new Customer();
         $form = $this->createForm('AppBundle\Form\CustomerType', $customer);
         $form->handleRequest($request);
@@ -81,7 +80,6 @@ class CartController extends Controller
             $this->addFlash('success', 'Your order is being processed');
             return $this->redirectToRoute('meal-index');
         }
-
         return $this->render("cart/checkout.html.twig", [
             'form' => $form->createView(),
         ]);
@@ -100,7 +98,6 @@ class CartController extends Controller
         $id = $request->request->get('id');
         $cart = $this->container->get('shopping_cart');
         $cart->remove($id);
-
         return $this->redirectToRoute('cart-main');
     }
 }

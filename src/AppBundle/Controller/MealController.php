@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Meal;
@@ -30,6 +29,4 @@ class MealController extends Controller
             'meal' => $meal,
         ]);
     }
-
-
 }

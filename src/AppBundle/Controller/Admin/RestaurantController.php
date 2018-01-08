@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Restaurant;
@@ -46,15 +45,12 @@ class RestaurantController extends Controller
         $restaurant = new Restaurant();
         $form = $this->createForm('AppBundle\Form\RestaurantType', $restaurant);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($restaurant);
             $em->flush();
-
             return $this->redirectToRoute('restaurant_index', array('id' => $restaurant->getId()));
         }
-
         return $this->render('admin/restaurant/new.html.twig', array(
             'restaurant' => $restaurant,
             'form' => $form->createView(),
@@ -70,7 +66,6 @@ class RestaurantController extends Controller
     public function showAction(Restaurant $restaurant)
     {
         $deleteForm = $this->createDeleteForm($restaurant);
-
         return $this->render('admin/restaurant/show.html.twig', array(
             'restaurant' => $restaurant,
             'delete_form' => $deleteForm->createView(),
@@ -88,13 +83,10 @@ class RestaurantController extends Controller
         $deleteForm = $this->createDeleteForm($restaurant);
         $editForm = $this->createForm('AppBundle\Form\RestaurantType', $restaurant);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('restaurant_edit', array('id' => $restaurant->getId()));
         }
-
         return $this->render('admin/restaurant/edit.html.twig', array(
             'restaurant' => $restaurant,
             'edit_form' => $editForm->createView(),
@@ -112,13 +104,11 @@ class RestaurantController extends Controller
     {
         $form = $this->createDeleteForm($restaurant);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($restaurant);
             $em->flush();
         }
-
         return $this->redirectToRoute('restaurant_index');
     }
 
@@ -134,7 +124,6 @@ class RestaurantController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('restaurant_delete', array('id' => $restaurant->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

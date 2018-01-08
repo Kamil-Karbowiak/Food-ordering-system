@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Category;
@@ -46,7 +45,6 @@ class CategoryController extends Controller
         $category = new Category();
         $form = $this->createForm('AppBundle\Form\CategoryType', $category);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
@@ -54,7 +52,6 @@ class CategoryController extends Controller
 
             return $this->redirectToRoute('category_index', array('id' => $category->getId()));
         }
-
         return $this->render('admin/category/new.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
@@ -73,13 +70,10 @@ class CategoryController extends Controller
         $editForm = $this->createForm('AppBundle\Form\CategoryType', $category, ['buttonValue' =>
         'Update']);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('category_index', array('id' => $category->getId()));
         }
-
         return $this->render('admin/category/edit.html.twig', array(
             'category' => $category,
             'edit_form' => $editForm->createView(),
@@ -97,13 +91,11 @@ class CategoryController extends Controller
     {
         $form = $this->createDeleteForm($category);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             $em->flush();
         }
-
         return $this->redirectToRoute('category_index');
     }
 
