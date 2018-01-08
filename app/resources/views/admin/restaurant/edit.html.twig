@@ -2,7 +2,6 @@
 
 {% block body %}
     <h1>Restaurant edit</h1>
-
     <div>
         {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -10,13 +9,13 @@
         {{ form_end(edit_form) }}
         <div>
             <div style="margin-left: 15%; rfloat: left">
-                    <a href="{{ path('restaurant_index') }}">Back to the list</a>
-             </div>
-             <div style="float: right">
+                <a href="{{ path('restaurant_index') }}">Back to the list</a>
+            </div>
+            <div style="float: right">
                 {{ form_start(delete_form) }}
                 <button type="submit" style="font-family:fontello;">&#xe801;</button>
                 {{ form_end(delete_form) }}
-             </div>
+            </div>
         </div>
     </div>
 {% endblock %}

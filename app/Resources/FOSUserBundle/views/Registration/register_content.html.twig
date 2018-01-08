@@ -2,7 +2,7 @@
 
 <div class="container-fluid" id="content">
     {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-        {{ form_widget(form) }}
+    {{ form_widget(form) }}
         <div class="form-group">
             <button type="submit" class="btn btn-primary" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">
                 {{ 'registration.submit'|trans }}

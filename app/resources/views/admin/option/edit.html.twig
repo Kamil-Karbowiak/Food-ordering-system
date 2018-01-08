@@ -1,45 +1,45 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block body %}
-<div class="container-fluid">
-    <h3>Edit meal options</h3>
-    {{ form_start(form) }}
-    <div class="form-group">
-        {{ form_label(form.meal) }}
-        {{ form_errors(form.meal) }}
-        {{ form_widget(form.meal) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.name) }}
-        {{ form_errors(form.name) }}
-        {{ form_widget(form.name) }}
-    </div>
-    <hr>
-    <div class="form-group menu-options-wrapper"
-         data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}"
-         data-index="{{ form.options|length }}">
-        {% for option in form.options %}
-            <div class="menu-options-item">
-                <div class="remove-link">
-                    <a href="#" class="option-remove">X</a>
+    <div class="container-fluid">
+        <h3>Edit meal options</h3>
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.meal) }}
+            {{ form_errors(form.meal) }}
+            {{ form_widget(form.meal) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <hr>
+        <div class="form-group menu-options-wrapper"
+             data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}"
+             data-index="{{ form.options|length }}">
+            {% for option in form.options %}
+                <div class="menu-options-item">
+                    <div class="remove-link">
+                        <a href="#" class="option-remove">X</a>
+                    </div>
+                    <div>
+                        {{ form_widget(option) }}
+                    </div>
                 </div>
-                <div>
-                    {{ form_widget(option) }}
-                </div>
-            </div>
-            <hr>
-        {% endfor %}
-        <a href="#" class="menu-options-add">
-            <span class="fa fa-plus-circle"></span>
-            Add Option
-        </a>
+                <hr>
+            {% endfor %}
+            <a href="#" class="menu-options-add">
+                <span class="fa fa-plus-circle"></span>
+                Add Option
+            </a>
+        </div>
+        <hr>
+        <div class="form-group">
+            {{ form_widget(form.save, { 'label': 'Add' }) }}
+        </div>
+        {{ form_end(form) }}
     </div>
-    <hr>
-    <div class="form-group">
-        {{ form_widget(form.save, { 'label': 'Add' }) }}
-    </div>
-    {{ form_end(form) }}
-</div>
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/menu_options.js') }}"></script>

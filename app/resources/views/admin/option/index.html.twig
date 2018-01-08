@@ -1,32 +1,32 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block body %}
-<div class="container-fluid">
-   <a href="{{ path("option_new") }}">Add new Option...</a>
-   <h1>Options list</h1>
-   <table class="table">
-      <tr>
-         <th>ID</th>
-         <th>Name</th>
-         <th>Meal</th>
-         <th>Options</th>
-         <th colspan="2">Actions</th>
-      </tr>
-      {% for option in options %}
+   <div class="container-fluid">
+      <a href="{{ path("option_new") }}">Add new Option...</a>
+      <h1>Options list</h1>
+      <table class="table">
          <tr>
-            <td>{{ option.id }}</td>
-            <td>{{ option.name }}</td>
-            <td><a href="{{ path('admin-meal-edit',{'id':option.meal.id}) }}">{{ option.meal.name }}</a></td>
-            <td>{{ option.optionsCount }}</td>
-            <td><a href="{{ path('option_edit',{'id':option.id}) }}">Edit</a></td>
-            <td>
-               <form action="{{ path('option_delete',{'id':option.id}) }}" method="post">
-                  {{ form_widget(delete_forms[option.id]) }}
-                  <button type="submit" style="font-family:fontello;">&#xe801;</button>
-               </form>
-            </td>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Meal</th>
+            <th>Options</th>
+            <th colspan="2">Actions</th>
          </tr>
-      {% endfor %}
-   </table>
-</div>
+         {% for option in options %}
+            <tr>
+               <td>{{ option.id }}</td>
+               <td>{{ option.name }}</td>
+               <td><a href="{{ path('admin-meal-edit',{'id':option.meal.id}) }}">{{ option.meal.name }}</a></td>
+               <td>{{ option.optionsCount }}</td>
+               <td><a href="{{ path('option_edit',{'id':option.id}) }}">Edit</a></td>
+               <td>
+                  <form action="{{ path('option_delete',{'id':option.id}) }}" method="post">
+                     {{ form_widget(delete_forms[option.id]) }}
+                     <button type="submit" style="font-family:fontello;">&#xe801;</button>
+                  </form>
+               </td>
+            </tr>
+         {% endfor %}
+      </table>
+   </div>
 {% endblock %}
